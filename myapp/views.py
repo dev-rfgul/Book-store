@@ -10,11 +10,17 @@ def get_book_by_authors(request, pk):
 
 
 def create_author(request):
+	if request.method == "POST":
+		first_name = request.POST.get("first_name")
+		last_name = request.POST.get("last_name")
+		bio = request.POST.get("bio")
 
-	author = Author(first_name = "Test", last_name = "Harvey", bio = "Author of C/C++ books")
-	author.save()
+		author = Author.objects.create(first_name = first_name, last_name = last_name, bio = bio)
 
-	return HttpResponse(f"An abject is created with an ID of {author.id}")
+		return HttpResponse(f"An abject is created with an ID of {author.id}")
+	
+	else:
+		return render(request, 'create_author.html')
 
 def get_authors(request):
 	authors = Author.objects.all()

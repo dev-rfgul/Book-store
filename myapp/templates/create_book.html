@@ -1,48 +1,37 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+  </head>
+  <body>
+    <form method="POST">
+      <label>Title</label>
+      <input type="text" name="title" /> <br />
+      <label>edition</label>
+      <input type="number" name="edition" /> <br />
+      <label>pages</label>
+      <input type="type" name="pages" /> <br />
 
+      <label>Select Authors</label>
 
-	<form method="POST">
-<label>Title</label>
-		<input type="text" name="title"> <br>
-<label>edition</label>
-		<input type="number" name="edition"> <br>
-<label>pages</label>
-		<input type="type" name="pages"> <br>
-		
-<label>Select Authors</label>
+      <select multiple name="authors">
+        {% for author in authors %}
+        <option value="{{author.id}}">{{author.first_name}}</option>
 
-		<select multiple name="authors">
-			{% for author in authors %}
-			<option value="{{author.id}}">
-				{{author.first_name}}
-			</option>
+        {% endfor %}
+      </select>
+      <br />
+      <label>Select Publisher</label>
+      <select name="publisher">
+        {% for publisher in publishers %}
+        <option value="{{publisher.id}}">{{publisher.title}}</option>
 
-			{% endfor %}
-
-		</select>
- <br>
-<label>Select Publisher</label>
-		<select name="publisher" >
-			{% for publisher in publishers %}
-			<option value="{{publisher.id}}">
-				{{publisher.title}}
-			</option>
-
-			{% endfor %}
-
-		</select>
-		 <br>
-<input type="submit" name="">
-
-
-	</form>
-
-</body>
+        {% endfor %}
+      </select>
+      <br />
+      <input type="submit" name="" />
+    </form>
+  </body>
 </html>
