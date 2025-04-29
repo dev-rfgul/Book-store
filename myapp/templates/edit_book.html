@@ -1,0 +1,91 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>book edit form</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label>Title</label>
+        <input type="text" name="title" value={{book.title}}/> <br />
+        <label>edition</label>
+        <input type="number" name="edition" value={{book.edition}}/> <br />
+        <label>pages</label>
+        <input type="type" name="pages" value={{book.pages}}/> <br />
+  
+        <label>Select Authors</label>
+  
+        <select multiple name="authors">
+          {% for author in authors %}
+          <option value="{{author.id}}">{{author.first_name}}</option>
+  
+          {% endfor %}
+        </select>
+        <br />
+        <label>Select Publisher</label>
+        <select name="publisher">
+          {% for publisher in publishers %}
+          <option value="{{publisher.id}}">{{publisher.title}}</option>
+  
+          {% endfor %}
+        </select>
+        <br />
+        <input type="submit" name="" />
+      </form>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Edit Form</title>
+  </head>
+  <body>
+    <h1>Edit Book Form</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <label>Title</label>
+        <input type="text" name="title" value="{{ book.title }}" /> <br />
+        
+        <label>Edition</label>
+        <input type="number" name="edition" value="{{ book.edition }}" /> <br />
+        
+        <label>Pages</label>
+        <input type="number" name="pages" value="{{ book.pages }}" /> <br />
+  
+        <label>Select Authors</label>
+        <select multiple name="authors">
+          {% for author in authors %}
+            <option value="{{ author.id }}"
+              {% if author in book.authors.all %} selected {% endif %}
+            >
+              {{ author.first_name }} {{ author.last_name }}
+            </option>
+          {% endfor %}
+        </select>
+        <br />
+
+        <label>Select Publisher</label>
+        <select name="publisher">
+          {% for publisher in publishers %}
+            <option value="{{ publisher.id }}"
+              {% if publisher.id == book.publisher.id %} selected {% endif %}
+            >
+              {{ publisher.title }}
+            </option>
+          {% endfor %}
+        </select>
+        <br />
+
+        <input type="submit" value="Save Changes" />
+    </form>
+  </body>
+</html>

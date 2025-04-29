@@ -20,5 +20,7 @@ path('edit_author/<int:pk>/', views.edit_author, name = 'edit_author'),
 
 path('create_book/', views.create_book, name = 'create_book'),
 path('create_publisher/', views.create_publisher, name = 'create_publisher'),
-path('books/', views.get_books, name = 'books')
+path('books/', views.get_books, name = 'books'),
+path('edit_book/<int:pk>', views.edit_book, name = 'edit_book'),
+path('delete_book/<int:pk>', views.delete_book, name = 'delete_book'),
 ]
