@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Website - {% block 'title' %} {% endblock %}</title>
+</head>
+<body>
+
+<header>Header</header>
+{% block 'slider'%} {% endblock %}
+
+
+<nav> <a href="{% url 'index'%}">Index</a>
+	 <a href="{% url 'service'%}">Service</a> 
+	 <a href="{% url 'about'%}">About</a>
+	 <!-- <a href="{% url 'about'%}">X</a> -->
+	</nav>
+	{% block 'content' %}
+
+	{% endblock %}
+
+	<footer>copyright@2025</footer>
+
+
+
+</body>
+</html>

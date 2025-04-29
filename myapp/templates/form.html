@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	<a href="{% url 'edit' 'test' %}">Submit Data </a>
+
+
+	<form method="POST" action="{% url 'form_submit' %}">
+		{% csrf_token %}
+
+		<label>Name</label> <input type="text" name="uname" />
+		<label>Email</label> <input type="email" name="email" />
+		<label>Password</label> <input type="password" name="pass" />
+
+		<input type="submit" name="submit">
+	</form>
+
+</body>
+</html>
