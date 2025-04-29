@@ -6,7 +6,9 @@
     <title></title>
   </head>
   <body>
+    <h1>Create Book</h1>
     <form method="POST">
+      {% csrf_token %}
       <label>Title</label>
       <input type="text" name="title" /> <br />
       <label>edition</label>

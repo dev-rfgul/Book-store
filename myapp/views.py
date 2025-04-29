@@ -60,31 +60,23 @@ def create_book(request):
 		title = request.POST.get("title")
 		edition = request.POST.get("edition")
 		pages = request.POST.get("pages")
-		
-
 		authors_ids = request.POST.getlist("authors") # [5, 10]
+		publisher_id = request.POST.get('publisher')
+		publisher = Publisher.objects.get(id = publisher_id)
 
-
-
-
-
-
-		publiser_id = request.POST.get('publisher')
-		publisher = Publisher.object.get(id = publisers)
-
-		book = Book.object.create(title = title, pages = pages, edition = edition, publisher = publisher)
+		book = Book.objects.create(title = title, pages = pages, edition = edition, publisher = publisher)
 
 
 		for author_id in authors_ids:
 			author_obj = Author.objects.get(id = author_id)
 			book.authors.add(author_obj)
 
-
+		return HttpResponse(f"An object is created with an ID of {book.id}")
 	else:
 		authors = Author.objects.all()
-		publisers = Publisher.objects.all()
+		publishers = Publisher.objects.all()
 
-		context = {'authors':authors, 'publisers':publisers}
+		context = {'authors':authors, 'publishers':publishers}
 
 		return render(request, 'create_book.html', context)
 
@@ -130,6 +122,20 @@ def response(request):
 
 
 	return render(request, 'response.html', context)
+
+def create_publisher(request):
+	if request.method=="POST":
+		title=request.POST.get("title")
+		country=request.POST.get("country")
+		publisher=Publisher.objects.create(title=title, country=country)
+		return HttpResponse(f"An object is created with an ID of {publisher.id}")
+	else:
+		return render(request, 'create_publisher.html')
+
+def get_books(request):
+	books=Book.objects.all()
+	context={'books': books}
+	return render (request, 'books.html', context)
 
 def greeting(request):
 	return HttpResponse("Hello World.....!")
