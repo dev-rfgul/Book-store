@@ -1,39 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title></title>
+    <title>Create Book</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <h1>Create Book</h1>
-    <form method="POST">
-      {% csrf_token %}
-      <label>Title</label>
-      <input type="text" name="title" /> <br />
-      <label>edition</label>
-      <input type="number" name="edition" /> <br />
-      <label>pages</label>
-      <input type="type" name="pages" /> <br />
+  <body class="bg-gray-100 text-gray-800 p-8">
 
-      <label>Select Authors</label>
+    <!-- Create Book Form -->
+    <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md mb-8">
+      <h1 class="text-3xl font-semibold text-center mb-6">Create Book</h1>
 
-      <select multiple name="authors">
-        {% for author in authors %}
-        <option value="{{author.id}}">{{author.first_name}}</option>
+      <form method="POST">
+        {% csrf_token %}
 
-        {% endfor %}
-      </select>
-      <br />
-      <label>Select Publisher</label>
-      <select name="publisher">
-        {% for publisher in publishers %}
-        <option value="{{publisher.id}}">{{publisher.title}}</option>
+        <div class="mb-4">
+          <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            required
+          />
+        </div>
 
-        {% endfor %}
-      </select>
-      <br />
-      <input type="submit" name="" />
-    </form>
+        <div class="mb-4">
+          <label for="edition" class="block text-sm font-medium text-gray-700">Edition</label>
+          <input
+            type="number"
+            name="edition"
+            id="edition"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            required
+          />
+        </div>
+
+        <div class="mb-4">
+          <label for="pages" class="block text-sm font-medium text-gray-700">Pages</label>
+          <input
+            type="number"
+            name="pages"
+            id="pages"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            required
+          />
+        </div>
+
+        <div class="mb-4">
+          <label for="authors" class="block text-sm font-medium text-gray-700">Select Authors</label>
+          <select
+            multiple
+            name="authors"
+            id="authors"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            required
+          >
+            {% for author in authors %}
+              <option value="{{author.id}}">{{author.first_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label for="publisher" class="block text-sm font-medium text-gray-700">Select Publisher</label>
+          <select
+            name="publisher"
+            id="publisher"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            required
+          >
+            {% for publisher in publishers %}
+              <option value="{{publisher.id}}">{{publisher.title}}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          Create Book
+        </button>
+      </form>
+    </div>
+
   </body>
 </html>

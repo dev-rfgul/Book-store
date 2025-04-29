@@ -1,32 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Website - {% block 'title' %} {% endblock %}</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Website - {% block 'title' %}{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-800 flex flex-col min-h-screen">
 
-<header>Header</header>
-{% block 'slider'%} {% endblock %}
+  <!-- Header -->
+  <header class="bg-blue-600 text-white p-4 text-2xl font-bold">
+    <div class="container mx-auto">
+      Books Management System
+    </div>
+  </header>
 
+  <!-- Slider Section -->
+  <section class="my-6">
+    {% block 'slider' %}{% endblock %}
+  </section>
 
-<nav> <a href="{% url 'index'%}">Index</a>
-	 <a href="{% url 'service'%}">Service</a> 
-	 <a href="{% url 'about'%}">About</a>
-	 <!-- <a href="{% url 'about'%}">X</a> -->
-	</nav>
-	{% block 'content' %}{% endblock %}
+  <!-- Navigation -->
+  <nav class="bg-white shadow-md">
+    <div class="container mx-auto flex flex-wrap gap-4 p-4">
+      <a href="{% url 'index' %}" class="text-blue-600 hover:underline">Index</a>
+      <a href="{% url 'service' %}" class="text-blue-600 hover:underline">Service</a>
+      <a href="{% url 'about' %}" class="text-blue-600 hover:underline">About</a>
+    </div>
+  </nav>
 
-	<button><a href="{% url 'get_authors'%}">authors</a></button>	
-	<button><a href="{% url 'create_author'%}"> Create authors</a></button>	
-	<button><a href="{% url 'create_book'%}"> Create Book</a></button>	
-	<button><a href="{% url 'create_publisher'%}"> Create Publisher</a></button>	
-	<button><a href="{% url 'books'%}"> Books</a></button>	
-	<button><a href="{% url 'get_publishers'%}"> publisher</a></button>	
-	<footer>copyright@2025</footer>
+  <!-- Main Content -->
+  <main class="flex-1 container mx-auto my-8 px-4">
+    {% block 'content' %}{% endblock %}
 
+    <!-- Buttons Section -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
+      <a href="{% url 'get_authors' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-center">Authors</a>
 
+      <a href="{% url 'books' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-center">Books</a>
+	  <a href="{% url 'get_publishers' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-center">Publishers</a>
+	     
+     
+    
+	  <a href="{% url 'create_author' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-center">Create Author</a>
+	   <a href="{% url 'create_book' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-center">Create Book</a>
+      <a href="{% url 'create_publisher' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded text-center">Create Publisher</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white text-center p-4 mt-8">
+    © 2025 - All rights reserved.
+  </footer>
 
 </body>
 </html>

@@ -1,91 +1,71 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>book edit form</h1>
-
-    <form method="POST">
-        {% csrf_token %}
-        <label>Title</label>
-        <input type="text" name="title" value={{book.title}}/> <br />
-        <label>edition</label>
-        <input type="number" name="edition" value={{book.edition}}/> <br />
-        <label>pages</label>
-        <input type="type" name="pages" value={{book.pages}}/> <br />
-  
-        <label>Select Authors</label>
-  
-        <select multiple name="authors">
-          {% for author in authors %}
-          <option value="{{author.id}}">{{author.first_name}}</option>
-  
-          {% endfor %}
-        </select>
-        <br />
-        <label>Select Publisher</label>
-        <select name="publisher">
-          {% for publisher in publishers %}
-          <option value="{{publisher.id}}">{{publisher.title}}</option>
-  
-          {% endfor %}
-        </select>
-        <br />
-        <input type="submit" name="" />
-      </form>
-  </body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Book Edit Form</title>
+    <title>Edit Book Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <h1>Edit Book Form</h1>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
-    <form method="POST">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+      <h1 class="text-2xl font-semibold text-center text-gray-700 mb-6">Edit Book Form</h1>
+
+      <form method="POST" class="space-y-6">
         {% csrf_token %}
-        
-        <label>Title</label>
-        <input type="text" name="title" value="{{ book.title }}" /> <br />
-        
-        <label>Edition</label>
-        <input type="number" name="edition" value="{{ book.edition }}" /> <br />
-        
-        <label>Pages</label>
-        <input type="number" name="pages" value="{{ book.pages }}" /> <br />
-  
-        <label>Select Authors</label>
-        <select multiple name="authors">
-          {% for author in authors %}
-            <option value="{{ author.id }}"
-              {% if author in book.authors.all %} selected {% endif %}
-            >
-              {{ author.first_name }} {{ author.last_name }}
-            </option>
-          {% endfor %}
-        </select>
-        <br />
 
-        <label>Select Publisher</label>
-        <select name="publisher">
-          {% for publisher in publishers %}
-            <option value="{{ publisher.id }}"
-              {% if publisher.id == book.publisher.id %} selected {% endif %}
-            >
-              {{ publisher.title }}
-            </option>
-          {% endfor %}
-        </select>
-        <br />
+        <div class="flex flex-col">
+          <label for="title" class="text-sm font-medium text-gray-600 mb-2">Title</label>
+          <input type="text" id="title" name="title" value="{{ book.title }}" required 
+            class="border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
 
-        <input type="submit" value="Save Changes" />
-    </form>
+        <div class="flex flex-col">
+          <label for="edition" class="text-sm font-medium text-gray-600 mb-2">Edition</label>
+          <input type="number" id="edition" name="edition" value="{{ book.edition }}" required 
+            class="border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div class="flex flex-col">
+          <label for="pages" class="text-sm font-medium text-gray-600 mb-2">Pages</label>
+          <input type="number" id="pages" name="pages" value="{{ book.pages }}" required 
+            class="border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div class="flex flex-col">
+          <label for="authors" class="text-sm font-medium text-gray-600 mb-2">Select Authors</label>
+          <select multiple name="authors" id="authors" 
+            class="border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            {% for author in authors %}
+              <option value="{{ author.id }}"
+                {% if author in book.authors.all %} selected {% endif %}
+              >
+                {{ author.first_name }} {{ author.last_name }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="flex flex-col">
+          <label for="publisher" class="text-sm font-medium text-gray-600 mb-2">Select Publisher</label>
+          <select name="publisher" id="publisher" 
+            class="border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            {% for publisher in publishers %}
+              <option value="{{ publisher.id }}"
+                {% if publisher.id == book.publisher.id %} selected {% endif %}
+              >
+                {{ publisher.title }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="text-center">
+          <input type="submit" value="Save Changes" 
+            class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+      </form>
+    </div>
+
   </body>
 </html>

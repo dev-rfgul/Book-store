@@ -3,10 +3,14 @@ from django.http import HttpResponse
 from .models import Author, Publisher, Book
 
 
-# Create your views here.
 def get_book_by_authors(request, pk):
-	author = Author.objects.get(id = pk)
-	author.books.all()
+    author = get_object_or_404(Author, id=pk)
+    books = author.books.all()  # reverse relation
+    context = {
+        'author': author,
+        'books': books
+    }
+    return render(request, 'books_by_author.html', context)
 
 def create_author(request):
 	if request.method == "POST":
@@ -14,9 +18,9 @@ def create_author(request):
 		last_name = request.POST.get("last_name")
 		bio = request.POST.get("bio")
 
-		author = Author.objects.create(first_name = first_name, last_name = last_name, bio = bio)
+		Author.objects.create(first_name = first_name, last_name = last_name, bio = bio)
 
-		return HttpResponse(f"An abject is created with an ID of {author.id}")
+		return redirect('get_authors')
 	
 	else:
 		return render(request, 'create_author.html')
@@ -122,7 +126,7 @@ def create_publisher(request):
 		title=request.POST.get("title")
 		country=request.POST.get("country")
 		publisher=Publisher.objects.create(title=title, country=country)
-		return HttpResponse(f"An object is created with an ID of {publisher.id}")
+		return redirect('get_publishers')
 	else:
 		return render(request, 'create_publisher.html')
 
@@ -143,6 +147,7 @@ def edit_publisher(request, pk):
 		publisher.country=country
 		publisher.save()
 		return redirect('get_publishers')
+
 def delete_publisher(request,pk):
 	publisher=get_object_or_404(Publisher,id=pk)
 	publisher.delete()

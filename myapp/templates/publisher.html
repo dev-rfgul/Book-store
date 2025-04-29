@@ -3,30 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Publishers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <h1>publishers</h1>
-    <table border="1">
-      <th>ID</th>
-      <th>Title</th>
-      <th>address</th>
-      <th>Action</th>
+  <body class="bg-gray-100 text-gray-800 p-8">
 
-      <tbody>
-        {% for publisher in publishers %}
-        <tr>
-          <td>{{ publisher.id}}</td>
-          <td>{{ publisher.title}}</td>
-          <td>{{ publisher.country}}</td>
+    <!-- Publishers List -->
+    <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
+      <h1 class="text-3xl font-semibold text-center mb-6">Publishers</h1>
 
-          <td>
-            <a href="{% url 'edit_publisher' publisher.id %}"> Edit </a> |
-            <a href="{% url 'delete_publisher' publisher.id %}"> Delete</a>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+      <table class="min-w-full table-auto text-sm text-left">
+        <thead>
+          <tr class="bg-blue-600 text-white">
+            <th class="py-3 px-4">ID</th>
+            <th class="py-3 px-4">Title</th>
+            <th class="py-3 px-4">Address</th>
+            <th class="py-3 px-4">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for publisher in publishers %}
+          <tr class="border-b">
+            <td class="py-3 px-4">{{ publisher.id }}</td>
+            <td class="py-3 px-4">{{ publisher.title }}</td>
+            <td class="py-3 px-4">{{ publisher.country }}</td>
+            <td class="py-3 px-4">
+              <a href="{% url 'edit_publisher' publisher.id %}" class="text-blue-600 hover:text-blue-800">Edit</a> |
+              <a href="{% url 'delete_publisher' publisher.id %}" class="text-red-600 hover:text-red-800">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
   </body>
 </html>

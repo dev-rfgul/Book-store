@@ -1,21 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form method="POST">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Publisher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 text-gray-800 p-8">
+
+    <!-- Create Publisher Form -->
+    <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md mb-8">
+      <h1 class="text-3xl font-semibold text-center mb-6">Create Publisher</h1>
+
+      <form method="POST">
         {% csrf_token %}
-        <label>Publisher Name</label>
-        <input type="text" name="title"  />
-        <br />
-        <label>Address</label>
-        <input type="text" name="country"  />
-        <br />
-        <input type="submit">
-    </form>
-    
-</body>
+
+        <div class="mb-4">
+          <label for="title" class="block text-sm font-medium text-gray-700">Publisher Name</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            required
+          />
+        </div>
+
+        <div class="mb-4">
+          <label for="country" class="block text-sm font-medium text-gray-700">Address</label>
+          <input
+            type="text"
+            name="country"
+            id="country"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          Create Publisher
+        </button>
+      </form>
+    </div>
+
+  </body>
 </html>

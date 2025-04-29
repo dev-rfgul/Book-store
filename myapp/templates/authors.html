@@ -1,34 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Authors</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-800 p-8">
 
-	<table border="1">
-		<th>ID</th>
-		<th>First Name</th>
-		<th>Last Name</th>
-		<th>Bio</th>
-		<th>Action</th>
-
-		<tbody>
-			{% for author in authors %}
-			<tr>
-					<td>{{ author.id}} </td>
-					<td>{{ author.first_name}} </td>
-					<td>{{ author.last_name}} </td>
-					<td>{{ author.bio}} </td>
-
-					<td> <a href="{% url 'edit_author' author.id %}"> Edit </a>   | <a href="{% url 'delete_author' author.id %}"> Delete</a></td>
-			</tr>
-			{% endfor %}
-		</tbody>
-		
-
-	</table>
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+      <thead class="bg-blue-600 text-white">
+        <tr>
+          <th class="py-3 px-6 text-left">ID</th>
+          <th class="py-3 px-6 text-left">First Name</th>
+          <th class="py-3 px-6 text-left">Last Name</th>
+          <th class="py-3 px-6 text-left">Bio</th>
+          <th class="py-3 px-6 text-left">Action</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        {% for author in authors %}
+        <tr class="hover:bg-gray-100">
+          <td class="py-4 px-6">{{ author.id }}</td>
+          <td class="py-4 px-6">{{ author.first_name }}</td>
+          <td class="py-4 px-6">{{ author.last_name }}</td>
+          <td class="py-4 px-6">{{ author.bio }}</td>
+          <td class="py-4 px-6 space-x-2">
+            <a href="{% url 'edit_author' author.id %}" class="text-blue-600 hover:underline font-medium">Edit</a>
+            |
+            <a href="{% url 'delete_author' author.id %}" class="text-red-600 hover:underline font-medium">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
 </body>
 </html>

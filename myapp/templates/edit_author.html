@@ -3,32 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Edit Author</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <form method="POST">
-      {% csrf_token %}
-      <label>First name</label>
-      <input type="text" name="first_name" value="{{author.first_name}}" />
-      <br />
-      <label>Last name </label>
-      <input type="text" name="last_name" value="{{author.last_name}}" /> <br />
-      <label>Bio</label>
-      <input type="type" name="bio" value="{{author.bio}}" /> <br />
-      <input type="submit" name="" />
-    </form>
+  <body class="bg-gray-100 text-gray-800 p-8">
 
-    <h2>Authors</h2>
-    <ul>
-      {%for author in authors%}
-      <li>
-        {{author.first_name}} {{author.last_name}}
-        <form method="POST" action="{% url 'delete_author' author.id %}">
-          {% csrf_token %}
-          <input type="submit" value="Delete" />
-        </form>
-      </li>
-      {% endfor %}
-    </ul>
+    <!-- Author Edit Form -->
+    <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-2xl font-bold text-center mb-6">Edit Author</h2>
+      <form method="POST">
+        {% csrf_token %}
+        
+        <div class="mb-4">
+          <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
+          <input
+            type="text"
+            name="first_name"
+            id="first_name"
+            value="{{ author.first_name }}"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            required
+          />
+        </div>
+        
+        <div class="mb-4">
+          <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
+          <input
+            type="text"
+            name="last_name"
+            id="last_name"
+            value="{{ author.last_name }}"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            required
+          />
+        </div>
+        
+        <div class="mb-4">
+          <label for="bio" class="block text-sm font-medium text-gray-700">Bio</label>
+          <textarea
+            name="bio"
+            id="bio"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            rows="4"
+            required
+          >{{ author.bio }}</textarea>
+        </div>
+        
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          Save Changes
+        </button>
+      </form>
+    </div>
+
+    <!-- Author List -->
+    <div class="mt-8 max-w-3xl mx-auto">
+      <h2 class="text-2xl font-bold mb-4">Authors</h2>
+      <ul class="space-y-4">
+        {% for author in authors %}
+          <li class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
+            <span class="text-lg font-semibold">{{ author.first_name }} {{ author.last_name }}</span>
+            <form method="POST" action="{% url 'delete_author' author.id %}" class="ml-4">
+              {% csrf_token %}
+              <input
+                type="submit"
+                value="Delete"
+                class="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+              />
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
   </body>
 </html>

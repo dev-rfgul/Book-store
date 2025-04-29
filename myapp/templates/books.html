@@ -1,44 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-	<table border="1">
-        <th>ID</th>
-		<th>title</th>
-		<th>editioin</th>
-		<th>pages</th>
-        <th>author</th>
-        <th>publisher</th>
-        <th>action </th>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Books List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 text-gray-800 p-8">
 
-		<tbody>
-			{% for book in books %}
-			<tr>
-					<td>{{ book.id}} </td>
-					<td>{{ book.title}} </td>
-					<td>{{ book.edition}} </td>
-					<td>{{ book.pages}} </td>
-                    <td>
-						{% for author in book.authors.all %}
-							{{ author.first_name }} {{ author.last_name }} <br>
-						{% endfor %}
-                    </td>
-                    <td>
-                        {{ book.publisher.title}}
-                    </td>
-                    
-					<td> <a href="{% url 'edit_book' book.id %}"> Edit </a>   | <a href="{% url 'delete_book' book.id %}"> Delete</a></td>
+    <!-- Books List -->
+    <div class="max-w-5xl mx-auto bg-white p-8 rounded-lg shadow-md">
+      <h1 class="text-3xl font-semibold text-center mb-6">Books List</h1>
 
-			
-			</tr>
-			{% endfor %}
-		</tbody>
-		
+      <table class="min-w-full table-auto text-sm text-left">
+        <thead>
+          <tr class="bg-blue-600 text-white">
+            <th class="py-3 px-4">ID</th>
+            <th class="py-3 px-4">Title</th>
+            <th class="py-3 px-4">Edition</th>
+            <th class="py-3 px-4">Pages</th>
+            <th class="py-3 px-4">Author(s)</th>
+            <th class="py-3 px-4">Publisher</th>
+            <th class="py-3 px-4">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for book in books %}
+          <tr class="border-b hover:bg-gray-50">
+            <td class="py-3 px-4">{{ book.id }}</td>
+            <td class="py-3 px-4">{{ book.title }}</td>
+            <td class="py-3 px-4">{{ book.edition }}</td>
+            <td class="py-3 px-4">{{ book.pages }}</td>
+            <td class="py-3 px-4">
+              {% for author in book.authors.all %}
+                {{ author.first_name }} {{ author.last_name }} <br>
+              {% endfor %}
+            </td>
+            <td class="py-3 px-4">{{ book.publisher.title }}</td>
+            <td class="py-3 px-4">
+              <a href="{% url 'edit_book' book.id %}" class="text-blue-600 hover:text-blue-800">Edit</a> |
+              <a href="{% url 'delete_book' book.id %}" class="text-red-600 hover:text-red-800">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
 
-	</table>
-</body>
+  </body>
 </html>
