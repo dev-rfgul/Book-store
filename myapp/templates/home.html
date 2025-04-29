@@ -1,19 +1,12 @@
-
-
 {% extends 'base.html' %}
 
-{% block 'slider' %}
-{% include 'slider.html' %}
+{% block title %}Home{% endblock %}
 
+{% block slider %}
+  {% include 'slider.html' %}
 {% endblock %}
 
-	{% block 'title' %}Home {% endblock %}
-	
-{% block 'content' %}
-	<content>
-		
-		Home
-	</content>
-	{% endblock %}
-
+{% block content %}
+  <content>Home page content goes here.</content>
+{% endblock %}
 

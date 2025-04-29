@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
   </head>
   <body>
     <form method="POST">
       {% csrf_token %}
       <label>First name</label>
-      <input type="text" name="first_name" /> <br />
+      <input type="text" name="first_name" value="{{author.first_name}}" />
+      <br />
       <label>Last name </label>
-      <input type="text" name="last_name" /> <br />
+      <input type="text" name="last_name" value="{{author.last_name}}" /> <br />
       <label>Bio</label>
-      <input type="type" name="bio" /> <br />
+      <input type="type" name="bio" value="{{author.bio}}" /> <br />
       <input type="submit" name="" />
     </form>
 

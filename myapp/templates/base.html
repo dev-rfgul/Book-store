@@ -16,10 +16,10 @@
 	 <a href="{% url 'about'%}">About</a>
 	 <!-- <a href="{% url 'about'%}">X</a> -->
 	</nav>
-	{% block 'content' %}
+	{% block 'content' %}{% endblock %}
 
-	{% endblock %}
-
+	<button><a href="{% url 'get_authors'%}">authors</a></button>	
+	<button><a href="{% url 'create_author'%}"> Create authors</a></button>	
 	<footer>copyright@2025</footer>
 
 

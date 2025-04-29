@@ -8,7 +8,6 @@ def get_book_by_authors(request, pk):
 	author = Author.objects.get(id = pk)
 	author.books.all()
 
-
 def create_author(request):
 	if request.method == "POST":
 		first_name = request.POST.get("first_name")
@@ -31,10 +30,6 @@ def get_authors(request):
 
 	#Author.objects.get(first_name = "" , last_name = "")
 
-
-# def edit_author(request):
-# 	pass
-
 def delete_author(request, pk):
 	author = get_object_or_404(Author, id = pk)
 	author.delete()
@@ -42,16 +37,23 @@ def delete_author(request, pk):
 	return redirect('get_authors')
 
 def edit_author(request, pk):
-	author = get_object_or_404(Author, id = pk)
+	author=get_object_or_404(Author, id = pk)
+	if request.method == "GET":
+		context = {'author': author}
+		return render(request, 'edit_author.html', context)
+	elif request.method == "POST":
+		first_name = request.POST.get("first_name")
+		last_name = request.POST.get("last_name")
+		bio = request.POST.get("bio")
 
-	author.first_name = "upadte f_name"
-	author.last_name = "updated l_name"
+		author = Author.objects.get(id = pk)
+		author.first_name = first_name
+		author.last_name = last_name
+		author.bio = bio
 
-	author.save()
+		author.save()
 
 	return redirect('get_authors')
-
-
 
 def create_book(request):
 	if request.method == "POST":
@@ -86,17 +88,9 @@ def create_book(request):
 
 		return render(request, 'create_book.html', context)
 
-
-
-
-
-
-
-
 def edit(request, username):
 	context = {'name': username}
 	return render(request, 'response.html', context)
-
 
 def form_submit(request):
 	if request.method == 'POST':
@@ -110,8 +104,6 @@ def form_submit(request):
 
 
 	return render(request, 'form.html')
-
-
 
 def full_form(request):
 	
@@ -133,14 +125,11 @@ def full_form(request):
 
     return render(request, "full_form.html")
 
-
 def response(request):
 	context = {'name': 'john doe', 'email':'john@gmail.com', 'age':25, 'intersts':['reading', 'sports', 'coding', 'writing', 'sleeping']}
 
 
 	return render(request, 'response.html', context)
-
-
 
 def greeting(request):
 	return HttpResponse("Hello World.....!")
