@@ -30,12 +30,6 @@ def get_authors(request):
 
 	#Author.objects.get(first_name = "" , last_name = "")
 
-def delete_author(request, pk):
-	author = get_object_or_404(Author, id = pk)
-	author.delete()
-
-	return redirect('get_authors')
-
 def edit_author(request, pk):
 	author=get_object_or_404(Author, id = pk)
 	if request.method == "GET":
@@ -52,6 +46,13 @@ def edit_author(request, pk):
 		author.save()
 
 	return redirect('get_authors')
+
+def delete_author(request, pk):
+	author = get_object_or_404(Author, id = pk)
+	author.delete()
+
+	return redirect('get_authors')
+
 
 def create_book(request):
 	if request.method == "POST":
@@ -77,6 +78,92 @@ def create_book(request):
 		context = {'authors':authors, 'publishers':publishers}
 
 		return render(request, 'create_book.html', context)
+
+def get_books(request):
+	books=Book.objects.all()
+	context={'books': books}
+	return render (request, 'books.html', context)
+
+def edit_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    authors = Author.objects.all()
+    publishers = Publisher.objects.all()
+
+    if request.method == "POST":
+        title = request.POST.get("title")
+        edition = request.POST.get("edition")
+        pages = request.POST.get("pages")
+        publisher_id = request.POST.get("publisher")
+        author_ids = request.POST.getlist("authors")  # To get multiple selected authors
+
+        # Update the book instance
+        book.title = title
+        book.edition = edition
+        book.pages = pages
+        book.publisher = Publisher.objects.get(id=publisher_id)
+
+        # Update the authors
+        book.authors.set(Author.objects.filter(id__in=author_ids))  # This sets the new authors for the book
+
+        book.save()
+
+        return redirect('books')  # Redirect after saving
+
+    return render(request, 'edit_book.html', {'book': book, 'authors': authors, 'publishers': publishers})
+
+def delete_book(request,pk):
+	book=get_object_or_404(Book, id=pk)
+	book.delete()
+	return redirect('books')
+
+
+def create_publisher(request):
+	if request.method=="POST":
+		title=request.POST.get("title")
+		country=request.POST.get("country")
+		publisher=Publisher.objects.create(title=title, country=country)
+		return HttpResponse(f"An object is created with an ID of {publisher.id}")
+	else:
+		return render(request, 'create_publisher.html')
+
+def get_publishers(request):
+	publisher=Publisher.objects.all()
+	context={'publishers':publisher}
+	return render(request,'publisher.html',context )
+
+def edit_publisher(request, pk):
+	publisher=get_object_or_404(Publisher, id = pk)
+	if request.method == "GET":
+		context = {'publisher': publisher}
+		return render(request, 'edit_publisher.html', context)
+	else :
+		title=request.POST.get('title')
+		country=request.POST.get('country')
+		publisher.title=title
+		publisher.country=country
+		publisher.save()
+		return redirect('get_publishers')
+def delete_publisher(request,pk):
+	publisher=get_object_or_404(Publisher,id=pk)
+	publisher.delete()
+	return redirect(get_publishers)
+	
+
+def greeting(request):
+	return HttpResponse("Hello World.....!")
+
+def message(request):
+	return HttpResponse("welcom to my website")
+
+def home(request):
+	return render(request, 'home.html')
+
+
+def about(request):
+	return render(request, 'about.html')
+
+def service(request):
+	return render(request, 'services.html')
 
 def edit(request, username):
 	context = {'name': username}
@@ -120,72 +207,3 @@ def response(request):
 
 
 	return render(request, 'response.html', context)
-
-def create_publisher(request):
-	if request.method=="POST":
-		title=request.POST.get("title")
-		country=request.POST.get("country")
-		publisher=Publisher.objects.create(title=title, country=country)
-		return HttpResponse(f"An object is created with an ID of {publisher.id}")
-	else:
-		return render(request, 'create_publisher.html')
-
-def get_books(request):
-	books=Book.objects.all()
-	context={'books': books}
-	return render (request, 'books.html', context)
-
-def edit_book(request,pk):
-	book=get_object_or_404(Book,id=pk)
-	if request.method=="GET":
-		context={'book':book}
-		return render (request, 'edit_book.html', context)
-
-def edit_book(request, pk):
-    book = get_object_or_404(Book, pk=pk)
-    authors = Author.objects.all()
-    publishers = Publisher.objects.all()
-
-    if request.method == "POST":
-        title = request.POST.get("title")
-        edition = request.POST.get("edition")
-        pages = request.POST.get("pages")
-        publisher_id = request.POST.get("publisher")
-        author_ids = request.POST.getlist("authors")  # To get multiple selected authors
-
-        # Update the book instance
-        book.title = title
-        book.edition = edition
-        book.pages = pages
-        book.publisher = Publisher.objects.get(id=publisher_id)
-
-        # Update the authors
-        book.authors.set(Author.objects.filter(id__in=author_ids))  # This sets the new authors for the book
-
-        book.save()
-
-        return redirect('books')  # Redirect after saving
-
-    return render(request, 'edit_book.html', {'book': book, 'authors': authors, 'publishers': publishers})
-
-
-def delete_book(request,pk):
-	book=get_object_or_404(Book, id=pk)
-	book.delete()
-	return redirect('books')
-
-def greeting(request):
-	return HttpResponse("Hello World.....!")
-
-def message(request):
-	return HttpResponse("welcom to my website")
-
-def home(request):
-	return render(request, 'home.html')
-
-
-def about(request):
-	return render(request, 'about.html')
-
-def service(request):
-	return render(request, 'services.html')
