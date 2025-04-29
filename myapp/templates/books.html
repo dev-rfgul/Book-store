@@ -7,11 +7,12 @@
 </head>
 <body>
 	<table border="1">
+        <th>ID</th>
 		<th>title</th>
 		<th>editioin</th>
 		<th>pages</th>
-		<th>authors</th>
-		<th>publishers</th>
+        <th>author</th>
+        <th>publisher</th>
 
 		<tbody>
 			{% for book in books %}
@@ -20,8 +21,16 @@
 					<td>{{ book.title}} </td>
 					<td>{{ book.edition}} </td>
 					<td>{{ book.pages}} </td>
+                    <td>
+						{% for author in book.authors.all %}
+							{{ author.first_name }} {{ author.last_name }} <br>
+						{% endfor %}
+                    </td>
+                    <td>
+                        {{ book.publisher.title}}
+                    </td>
 
-					<td> <a href="{% url 'edit_author' author.id %}"> Edit </a>   | <a href="{% url 'delete_author' author.id %}"> Delete</a></td>
+			
 			</tr>
 			{% endfor %}
 		</tbody>

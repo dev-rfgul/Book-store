@@ -45,8 +45,6 @@ def edit_author(request, pk):
 		first_name = request.POST.get("first_name")
 		last_name = request.POST.get("last_name")
 		bio = request.POST.get("bio")
-
-		author = Author.objects.get(id = pk)
 		author.first_name = first_name
 		author.last_name = last_name
 		author.bio = bio
