@@ -30,9 +30,11 @@ def get_authors(request):
 
 	context = {'authors':authors}
 
+
 	return render(request, 'authors.html', context)
 
 	#Author.objects.get(first_name = "" , last_name = "")
+	
 
 def edit_author(request, pk):
 	author=get_object_or_404(Author, id = pk)
